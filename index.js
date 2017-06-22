@@ -7,16 +7,15 @@ module.exports = (app) => {
     const Routes = require('./lib/routes/helpers')(app);
     let _ = require('lodash');
     let Model = require('/Users/ilyanoskov/practice/js/api_base_js/lib/models/models.js');
+    let generateEndpoints = require('/Users/ilyanoskov/practice/js/api_base_js/lib/routes/index.js').generateEndpoints;
 
     const defineEndpoints = (endpoints) => {
         endpoints.forEach((endpoint) => {
             Routes.loadEndpoint(endpoint);
         });
     };
-
-    const exposeToApigateway = (endpoints) => {
-
-        app.get('/v0.1/public-endpoints', (req, res, next) => {
+/*
+    const generateEndpoints = (endpoints) =>  (req, res) => {
         let result = {};
         endpoints.forEach((endpoint) => {
             if (endpoint.via) {
@@ -61,8 +60,13 @@ module.exports = (app) => {
         });
 
         res.json(result);
-    })
-    }
+    } 
+
+*/
+
+    const exposeToApigateway = (endpoints) => {
+        app.get('/v0.1/public-endpoints', generateEndpoints(endpoints)); 
+    };
 
     return {
         defineEndpoints : defineEndpoints,

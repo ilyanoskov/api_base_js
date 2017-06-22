@@ -4,6 +4,7 @@ global.rootRequire = function(name) {
 
 module.exports = (app) => {
     const Routes = require('./lib/routes/helpers')(app);
+
     const defineEndpoints = (endpoints) => {
         endpoints.forEach((endpoint) => {
             Routes.loadEndpoint(endpoint);

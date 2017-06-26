@@ -1,5 +1,6 @@
 'use strict';
 
+//rootRequire for the library
 global.libRequire = function(name) {
   return require(__dirname + '/' + name);
 };
@@ -14,15 +15,11 @@ module.exports = (app) => {
 
     //generate swaggerDoc
     const swaggerDoc = generateSwaggerfile();
-    console.log(swaggerDoc);
     
     //initialize swaggerUI and generate documentation
-    /*
     swaggerTools.initializeMiddleware(swaggerDoc, (middleware) => {
         app.use(middleware.swaggerUi());
     });
-    */
-
 
     const defineEndpoints = (endpoints) => {
         endpoints.forEach((endpoint) => {

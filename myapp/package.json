@@ -9,7 +9,7 @@
   "author": "Ilya Noskov",
   "license": "MIT",
   "dependencies": {
-    "api_base_js": "../api_base_js",
+    "api_base_js": "../../api_base_js",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "lodash": "^4.17.4",

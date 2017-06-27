@@ -1,0 +1,80 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "myapp",
+    "description": "A simple app to test api_base_js library",
+    "version": "v0.1"
+  },
+  "produces": [
+    "application/json"
+  ],
+  "host": "localhost:3000",
+  "paths": {
+    "/v0.1/regs": {
+      "x-swagger-router-controller": "registrations.js",
+      "x-middleware-folder" : "",
+      "x-middlewares" : [],
+      "x-via" : "haa",
+      "put": {
+        "parameters": [
+          {
+            "name": "location",
+            "in": "body",
+            "x-via" : "yolo",
+            "schema": {
+              "$ref": "#/definitions/location"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "all good"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "location": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "long": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string",
+          "x-sumup": "string"
+        },
+        "alert": {
+          "type": "string"
+        },
+        "degreetype": {
+          "type": "string",
+          "enum": [
+            "C",
+            "F"
+          ]
+        },
+        "imagerelativeurl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "lat",
+        "long",
+        "timezone",
+        "degreetype"
+      ]
+    }
+  }
+}

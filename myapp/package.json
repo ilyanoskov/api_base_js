@@ -1,7 +1,7 @@
 {
-  "name": "api_base_js",
+  "name": "myapp",
   "version": "1.0.0",
-  "description": "a wrapper for apis at Sumup",
+  "description": "A simple app to test api_base_js library",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,12 +9,11 @@
   "author": "Ilya Noskov",
   "license": "MIT",
   "dependencies": {
+    "api_base_js": "../api_base_js",
     "body-parser": "^1.17.2",
-    "connect": "^3.6.2",
     "express": "^4.15.3",
     "lodash": "^4.17.4",
     "morgan": "^1.8.2",
-    "q": "^1.5.0",
-    "swagger-tools": "^0.10.1"
+    "q": "^1.5.0"
   }
 }

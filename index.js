@@ -6,7 +6,6 @@ global.libRequire = function(name) {
 };
 
 module.exports = (app, options) => {
-    const Routes = require('./lib/routes/helpers')(app);
     const _ = require('lodash');
     const Model = require('./lib/models/models.js');
     const generateEndpoints = require('./lib/routes/index.js').generateEndpoints;
@@ -36,11 +35,18 @@ module.exports = (app, options) => {
 
 
     //initialize our own middlewares for specific routes
+
+    endpoints.forEach(endpoint => {
+        if (!_.isEmpty(endpoint.middleWares)) {
+            endpoint.middleWares.forEach(mw => {
+                app.use(endpoint.path, rootRequire(options.middleware + '/'+ mw));
+            })
+        }
+    })
     // BLAH BLAH BLAH
 
     const defineEndpoints = (endpoints) => {
         endpoints.forEach((endpoint) => {
-            Routes.loadEndpoint(endpoint);
         });
     };
 

@@ -12,7 +12,8 @@ const app = express();
 const options = {
   swaggerDoc : './swaggerDoc.json',
   controllers : './handlers',
-  middleware : './middleware'
+  middleware : './middleware',
+  endpoints : './ednpoints.js'
 };
 
 const api_base = require('api_base_js')(app, options);

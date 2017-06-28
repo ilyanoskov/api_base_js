@@ -10,7 +10,7 @@ module.exports = {
       type: 'PersonalProfile'
     },
     'merchant_profile': {
-      required: false,
+      required: true,
       type: 'MerchantProfile'
     },
     'mother_name': {

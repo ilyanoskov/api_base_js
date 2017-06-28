@@ -6,9 +6,9 @@ generate Swagger documentation at the `/api-docs` endpoint. Enjoy!
 
 ## Installation
 
-Run `npm install` inside api_base_js folder
-Run `npm install` inside myapp folder
-After that, run `node index` to have the sample application running
+Run `npm install` inside api_base_js folder   
+Run `npm install` inside myapp folder   
+After that, run `node myapp/index` to have the sample application running  
 
 ## Usage
 
@@ -49,6 +49,15 @@ module.exports = [
 ];
 
 ```
+
+
+##Development
+These commands will make it easier to develop the library and test it simultaneously with myapp.
+
+Run `npm link` in `api_base_js` folder   
+`cd myapp`   
+`npm link api_base_js`   
+
 
 
 

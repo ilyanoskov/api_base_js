@@ -1,0 +1,18 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "SumUp API",
+    "description": "API for SumUp.",
+    "version": "1.0"
+  },
+  "produces": ["application/json"],
+  "host": "localhost:3000",
+  "basePath": "/v01",
+  "paths": {
+
+
+  },
+  "definitions": {
+
+  }
+}

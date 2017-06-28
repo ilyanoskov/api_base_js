@@ -11,12 +11,13 @@ module.exports = (app, options) => {
     const Model = require('./lib/models/models.js');
     const generateEndpoints = require('./lib/routes/index.js').generateEndpoints;
     const swaggerTools = require('swagger-tools');
-    const generateSwaggerfile = require('./lib/swagger/index.js').generateSwaggerfile;
+    const generateSwaggerfile = require('./lib/swagger/index.js').generateSwaggerFile;
+    const endpoints = rootRequire('./endpoints.js')
 
     //generate swaggerDoc
-    //const swaggerDoc = generateSwaggerfile();
-
-    const swaggerDoc = rootRequire(options.swaggerDoc);
+    generateSwaggerfile(app, endpoints, 'models/');
+    var swaggerDoc = require('./lib/swagger/swagger.json')
+        //const swaggerDoc = rootRequire(options.swaggerDoc);
     
     //initialize swaggerUI and generate documentation
     swaggerTools.initializeMiddleware(swaggerDoc, (middleware) => {

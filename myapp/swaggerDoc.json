@@ -24,6 +24,11 @@
             "schema": {
               "$ref": "#/definitions/location"
             }
+          },
+          {
+            "name" : "test",
+            "in" : "query",
+            "type" : "string"
           }
         ],
         "responses": {

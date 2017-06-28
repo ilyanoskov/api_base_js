@@ -7,7 +7,6 @@
   },
   "produces": ["application/json"],
   "host": "localhost:3000",
-  "basePath": "/v01",
   "paths": {
 
 

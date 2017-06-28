@@ -15,20 +15,20 @@ module.exports = (app, options) => {
 
     //generate swaggerDoc
     generateSwaggerfile(app, endpoints, 'models/');
-    var swaggerDoc = require('./lib/swagger/swagger.json')
-        //const swaggerDoc = rootRequire(options.swaggerDoc);
+    var swaggerDoc = require('./lib/swagger/swagger.json');
+    console.log(swaggerDoc);
+    //const swaggerDoc = rootRequire(options.swaggerDoc);
     
     //initialize swaggerUI and generate documentation
     swaggerTools.initializeMiddleware(swaggerDoc, (middleware) => {
         // Interpret Swagger resources and attach metadata to request - must be first in swagger-tools middleware chain
         app.use(middleware.swaggerMetadata());
-
         // Validate Swagger requests
         app.use(middleware.swaggerValidator());
-
         // Route validated requests to appropriate controller
-        app.use(middleware.swaggerRouter(options));
-
+        app.use(middleware.swaggerRouter({
+             controllers: options.controllers
+       }));
         // serve documentation on /docs
         app.use(middleware.swaggerUi());
     });

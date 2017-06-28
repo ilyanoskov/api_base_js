@@ -1,10 +1,10 @@
 'use strict';
-module.exports = (app) => {
-    const reg = (req, res, next) => {
+
+function registrations(req, res) {
         console.log('REGISTRATIONS!!');
-        res.send('REGISTRATIONS');
-    };
-        return {
-            reg : reg
-        };
-}; 
+        res.status(200).send('REGISTRATIONS');
+};
+
+module.exports = {
+        registrations : registrations
+}

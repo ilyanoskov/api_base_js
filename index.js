@@ -23,8 +23,6 @@ module.exports = (app, options) => {
     swaggerTools.initializeMiddleware(swaggerDoc, (middleware) => {
         // Interpret Swagger resources and attach metadata to request - must be first in swagger-tools middleware chain
         app.use(middleware.swaggerMetadata());
-        // Validate Swagger requests
-        app.use(middleware.swaggerValidator());
         // Route validated requests to appropriate controller
         app.use(middleware.swaggerRouter({
             controllers: options.controllers
@@ -43,7 +41,7 @@ module.exports = (app, options) => {
         }
     });
 
-    //apply request validation middleware to specific routes
+    //apply request validation to specific routes
     endpoints.forEach(endpoint => {
         if (!endpoint.autovalidate && endpoint.requestEntity) {
             app.use(endpoint.path, (req, res, next) => {
@@ -62,16 +60,59 @@ module.exports = (app, options) => {
         }
     });
 
-    const defineEndpoints = (endpoints) => {
-        endpoints.forEach((endpoint) => {});
-    };
 
     const exposeToApigateway = (endpoints) => {
-        app.get('/v0.1/public-endpoints', generateEndpoints(endpoints));
-    };
+        app.get('/v0.1/public-endpoints', (req, res, next) => {
+        let result = {};
+        endpoints.forEach((endpoint) => {
+            if (endpoint.via) {
+                result[endpoint.via] = result[endpoint.via] || [];
+                let entry = {
+                    uri: endpoint.path,
+                    method: endpoint.method,
+                    protected_params: [],
+                    params: []
+                };
+                if (endpoint.requestEntity) {
+                    let model = new Model(endpoint.requestEntity);
+
+                    _.mapKeys(model._scheme.query || {}, function(param, key) {
+                        let paramEntry = {
+                            name: key,
+                            type: 'query'
+                        };
+                        if (param.source) {
+                            paramEntry.source = param.source;
+                        }
+                        entry.params.push(paramEntry);
+                        if (param.protected) {
+                            entry.protected_params.push(paramEntry);
+                        }
+                    });
+
+                    _.mapKeys(model._scheme.path || {}, function(param, key) {
+                        let paramEntry = {
+                            name: key,
+                            type: 'path'
+                        };
+                        entry.params.push(paramEntry);
+                        if (param.protected) {
+                            entry.protected_params.push(paramEntry);
+                        }
+                    });
+                }
+
+                result[endpoint.via].push(entry);
+            }
+        });
+
+        res.json(result); 
+    } ) } ;
+
+    //serve endpoints for apigateway
+    exposeToApigateway(endpoints);
 
     return {
-        defineEndpoints: defineEndpoints,
         exposeToApigateway: exposeToApigateway
     }
 

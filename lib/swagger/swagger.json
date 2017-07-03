@@ -8,8 +8,6 @@
   "produces": ["application/json"],
   "host": "localhost:3000",
   "paths": {
-
-
   },
   "definitions": {
 

@@ -2,7 +2,7 @@ module.exports = {
   name: 'Onboarding',
   body: {
     'email': {
-      required: false,
+      required: true,
       type: 'email'
     },
     'personal_profile': {

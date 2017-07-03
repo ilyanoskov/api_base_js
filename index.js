@@ -1,8 +1,8 @@
 'use strict';
 
 //rootRequire for the library
-global.libRequire = function(name) {
-  return require(__dirname + '/' + name);
+global.libRequire = function (name) {
+    return require(__dirname + '/' + name);
 };
 
 module.exports = (app, options) => {
@@ -18,7 +18,7 @@ module.exports = (app, options) => {
     var swaggerDoc = require('./lib/swagger/swagger.json');
     console.log(swaggerDoc);
     //const swaggerDoc = rootRequire(options.swaggerDoc);
-    
+
     //initialize swaggerUI and generate documentation
     swaggerTools.initializeMiddleware(swaggerDoc, (middleware) => {
         // Interpret Swagger resources and attach metadata to request - must be first in swagger-tools middleware chain
@@ -27,38 +27,52 @@ module.exports = (app, options) => {
         app.use(middleware.swaggerValidator());
         // Route validated requests to appropriate controller
         app.use(middleware.swaggerRouter({
-             controllers: options.controllers
-       }));
+            controllers: options.controllers
+        }));
         // serve documentation on /docs
         app.use(middleware.swaggerUi());
     });
 
 
     //initialize our own middlewares for specific routes
-
     endpoints.forEach(endpoint => {
         if (!_.isEmpty(endpoint.middleWares)) {
             endpoint.middleWares.forEach(mw => {
-                app.use(endpoint.path, rootRequire(options.middleware + '/'+ mw));
+                app.use(endpoint.path, rootRequire(options.middleware + '/' + mw));
             })
         }
-    })
-    // BLAH BLAH BLAH
+    });
+
+    //apply request validation middleware to specific routes
+    endpoints.forEach(endpoint => {
+        if (!endpoint.autovalidate && endpoint.requestEntity) {
+            app.use(endpoint.path, (req, res, next) => {
+                req.requestEntity = new Model(endpoint.requestEntity);
+                try {
+                    req.requestEntity.populateRequestEntity(req.body);
+                    req.requestEntity.populatePathParams(req.params);
+                    req.requestEntity.populateQueryParams(req.query);
+                    req.requestEntity.throwIfErrors();
+                } catch (e) {
+                    res.status(400).json(e.message);
+                    return;
+                }
+                next();
+            });
+        }
+    });
 
     const defineEndpoints = (endpoints) => {
-        endpoints.forEach((endpoint) => {
-        });
+        endpoints.forEach((endpoint) => {});
     };
 
     const exposeToApigateway = (endpoints) => {
-        app.get('/v0.1/public-endpoints', generateEndpoints(endpoints)); 
+        app.get('/v0.1/public-endpoints', generateEndpoints(endpoints));
     };
 
     return {
-        defineEndpoints : defineEndpoints,
-        exposeToApigateway : exposeToApigateway
+        defineEndpoints: defineEndpoints,
+        exposeToApigateway: exposeToApigateway
     }
 
 };
-
-

@@ -16,7 +16,7 @@ module.exports = (app, options) => {
     //generate swaggerDoc
     generateSwaggerfile(app, endpoints, 'models/');
     var swaggerDoc = require('./lib/swagger/swagger.json');
-    console.log(swaggerDoc);
+
     //const swaggerDoc = rootRequire(options.swaggerDoc);
 
     //initialize swaggerUI and generate documentation

@@ -6,6 +6,7 @@ module.exports = [
     middleWares : ['onboardingMiddleware'],
     handler: 'registrations.registrations',
     via: '/v0.1/me/registerrrr/',
+    response: 'test',
     autovalidate : true
   }
 ];

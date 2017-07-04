@@ -1,21 +1,29 @@
 module.exports = {
-  name: 'Onboarding',
-  body: {
-    'email': {
-      required: true,
-      type: 'email'
+    name: 'Onboarding',
+    query: {
+        'merchant_code': {
+            required: true,
+            protected: true,
+            type: 'string',
+            source: 'merchant_code'
+        }
     },
-    'personal_profile': {
-      required: false,
-      type: 'PersonalProfile'
-    },
-    'merchant_profile': {
-      required: true,
-      type: 'MerchantProfile'
-    },
-    'mother_name': {
-      required: false,
-      type: 'string'
+    body: {
+        'finally': {
+            required: true,
+            type: 'NestedTest'
+        }
+        // 'personal_profile': {
+        //     required: true,
+        //     type: 'PersonalProfile'
+        // },
+        // 'merchant_profile': {
+        //     required: true,
+        //     type: 'MerchantProfile'
+        // },
+        // 'mother_name': {
+        //     required: true,
+        //     type: 'string'
+        // }
     }
-  }
 };

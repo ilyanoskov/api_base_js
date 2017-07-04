@@ -37,6 +37,7 @@ module.exports = [
     middleWares : ['onboardingMiddleware'],
     handler: 'registrations.js',
     via: '/v0.1/me/registrations',
+    response: 'Test',
     autovalidate : false
   },
   {

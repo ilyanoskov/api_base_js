@@ -6,6 +6,7 @@ global.libRequire = function (name) {
 };
 
 module.exports = (app, options) => {
+    const fs = require('fs');
     const _ = require('lodash');
     const Model = require('./lib/models/models.js');
     const generateEndpoints = require('./lib/routes/index.js').generateEndpoints;
@@ -13,11 +14,10 @@ module.exports = (app, options) => {
     const generateSwaggerfile = require('./lib/swagger/index.js').generateSwaggerFile;
     const endpoints = rootRequire('./endpoints.js')
 
-    //generate swaggerDoc
-    generateSwaggerfile(app, endpoints, 'models/');
-    var swaggerDoc = require('./lib/swagger/swagger.json');
+    //generate swagger documentation
+    let swaggerDoc = generateSwaggerfile(app, endpoints, 'models/', options);
 
-    //const swaggerDoc = rootRequire(options.swaggerDoc);
+    fs.writeFile(`${options.swagger.swaggerDoc}`, JSON.stringify(swaggerDoc));
 
     //initialize swaggerUI and generate documentation
     swaggerTools.initializeMiddleware(swaggerDoc, (middleware) => {

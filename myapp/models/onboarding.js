@@ -9,21 +9,9 @@ module.exports = {
         }
     },
     body: {
-        'finally': {
+        'nested_body': {
             required: true,
             type: 'NestedTest'
         }
-        // 'personal_profile': {
-        //     required: true,
-        //     type: 'PersonalProfile'
-        // },
-        // 'merchant_profile': {
-        //     required: true,
-        //     type: 'MerchantProfile'
-        // },
-        // 'mother_name': {
-        //     required: true,
-        //     type: 'string'
-        // }
     }
 };

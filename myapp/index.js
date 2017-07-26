@@ -10,7 +10,16 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const options = {
-  swaggerDoc : './swaggerDoc.json',
+  connection: {
+    host: "localhost",
+    port: 3000
+  },
+  swagger: {
+    title: "myAppTest",
+    description: "Test app for the api_base_js",
+    version: "1.0.0",
+    swaggerDoc : './swaggerDoc.json'
+  },
   controllers : './handlers',
   middleware : './middlewares',
   endpoints : './ednpoints.js'
@@ -25,7 +34,5 @@ app.use(bodyParser.json());
 
 let endpoints = require('./endpoints.js');
 
-//api_base.exposeToApigateway(endpoints);
-
-app.listen(3000, console.log('listening on port 3000'));
+app.listen(options.connection.port, console.log('listening on port 3000'));
 

@@ -22,7 +22,8 @@ const options = {
   },
   controllers : './handlers',
   middleware : './middlewares',
-  endpoints : './ednpoints.js'
+  models: 'models/',
+  endpoints : './endpoints.js'
 };
 
 const api_base = require('api_base_js')(app, options);

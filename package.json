@@ -6,8 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Ilya Noskov",
-  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.2",
     "connect": "^3.6.2",

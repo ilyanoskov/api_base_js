@@ -12,10 +12,10 @@ module.exports = (app, options) => {
     const generateEndpoints = require('./lib/routes/index.js').generateEndpoints;
     const swaggerTools = require('swagger-tools');
     const generateSwaggerfile = require('./lib/swagger/index.js').generateSwaggerFile;
-    const endpoints = rootRequire('./endpoints.js')
+    const endpoints = rootRequire(options.endpoints);
 
     //generate swagger documentation
-    let swaggerDoc = generateSwaggerfile(app, endpoints, 'models/', options);
+    let swaggerDoc = generateSwaggerfile(app, endpoints, options.models, options);
 
     fs.writeFile(`${options.swagger.swaggerDoc}`, JSON.stringify(swaggerDoc));
 
